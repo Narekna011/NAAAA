@@ -1,83 +1,52 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pricing — LUXE INVITE</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — LUXE INVITE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header class="lux-header">
-        <div class="lux-header-inner">
-            <a href="index.html" class="logo"><div class="logo-icon">L</div><div class="logo-text">LUXE INVITE</div></a>
-            <div class="lux-header-actions">
-                <a href="index.html" class="btn-secondary">Home</a>
-                <a href="#contact" class="btn-primary">Contact</a>
-            </div>
+    <div class="lux-bg-gradient"></div>
+    <header class="lux-header" id="luxHeader">
+        <div class="container lux-header-inner">
+            <a href="index.html" class="lux-logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a>
+            <nav class="lux-nav"><a href="index.html#features" data-i18n="nav_features">Features</a><a href="templates.html" data-i18n="nav_templates">Templates</a><a href="index.html#contact" data-i18n="nav_contact">Contact</a></nav>
+            <div class="lux-lang-switcher"><button class="lang-btn" data-lang="hy">HY</button><button class="lang-btn" data-lang="ru">RU</button><button class="lang-btn" data-lang="en">EN</button></div>
+            <div class="lux-header-actions"><a href="dashboard.html" class="lux-btn-secondary" data-i18n="nav_dashboard">Dashboard</a><a href="constructor.html" class="lux-btn-primary" data-i18n="nav_create">Create</a></div>
+            <button class="lux-mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" id="mobileMenuBtn">☰</button>
         </div>
     </header>
-
-    <main class="pricing-main">
-        <h1 class="pricing-title">Pricing plans</h1>
-        <p class="pricing-sub">Choose a plan that suits your event. Contact us for custom enterprise pricing.</p>
-
-        <div class="plans-grid">
-            <div class="feature-card">
-                <h3>Demo</h3>
-                <p>Trial the Economy features for 5 minutes.</p>
-                <a href="constructor.html?demo=1&plan=economy" class="btn-primary">Start Demo</a>
-            </div>
-            <div class="feature-card" id="economy">
-                <h3>Economy — $9/month</h3>
-                <ul class="list-left">
-                    <li>Templates</li>
-                    <li>Music & Countdown</li>
-                    <li>RSVP & QR</li>
-                    <li>Up to 50 photos</li>
-                </ul>
-                <a href="#contact" class="btn-secondary">Request</a>
-            </div>
-            <div class="feature-card" id="premium">
-                <h3>Premium — $29/month</h3>
-                <ul class="list-left">
-                    <li>All Economy features</li>
-                    <li>Video & 3D</li>
-                    <li>Custom domain</li>
-                    <li>AI-generated text</li>
-                </ul>
-                <a href="#contact" class="btn-secondary">Contact Sales</a>
-            </div>
+    <div class="lux-mobile-menu" id="mobileMenu" aria-hidden="true"><a href="index.html#features" data-i18n="nav_features">Features</a><a href="templates.html" data-i18n="nav_templates">Templates</a><a href="index.html#contact" data-i18n="nav_contact">Contact</a><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a><a href="constructor.html" data-i18n="nav_create">Create</a></div>
+    <section style="padding-top:160px;"><div class="container">
+        <div class="lux-section-title"><div class="lux-section-pre" data-i18n="pricing_pre">PRICING</div><h2 class="lux-section-heading" data-i18n="pricing_title">Simple, Transparent Plans</h2></div>
+        <div class="lux-pricing-grid">
+            <div class="lux-pricing-card"><h3 data-i18n="plan_demo">Demo</h3><div class="lux-pricing-price">Free</div><p data-i18n="plan_demo_desc">Try the Economy plan free for 5 minutes. No card required.</p><a href="constructor.html?demo=1&plan=economy" class="lux-btn-primary" data-i18n="plan_demo_cta">Try Demo</a></div>
+            <div class="lux-pricing-card lux-pricing-featured"><div class="lux-pricing-badge" data-i18n="plan_popular">Most Popular</div><h3 data-i18n="plan_economy">Economy</h3><div class="lux-pricing-price">$9<span>/mo</span></div><ul class="lux-pricing-features"><li data-i18n="plan_ec_f1">Premium templates</li><li data-i18n="plan_ec_f2">Music & countdown</li><li data-i18n="plan_ec_f3">RSVP & QR codes</li><li data-i18n="plan_ec_f4">Up to 50 photos</li></ul><a href="#contact" class="lux-btn-primary" data-i18n="plan_ec_cta">Get Started</a></div>
+            <div class="lux-pricing-card" id="premium"><h3 data-i18n="plan_premium">Premium</h3><div class="lux-pricing-price">$29<span>/mo</span></div><ul class="lux-pricing-features"><li data-i18n="plan_pm_f1">All Economy features</li><li data-i18n="plan_pm_f2">Video & 3D effects</li><li data-i18n="plan_pm_f3">Custom domain</li><li data-i18n="plan_pm_f4">AI-generated text</li></ul><a href="#contact" class="lux-btn-secondary" data-i18n="plan_pm_cta">Contact Sales</a></div>
         </div>
-
-        <section id="contact" class="pricing-contact">
-            <h2>Contact Sales</h2>
-            <p class="muted">Send a request and we'll reply within 24 hours.</p>
-            <form id="pricingContact" class="pricing-form">
-                <input id="pc_name" class="form-input" placeholder="Name" aria-label="Name" />
+        <section id="contact" style="margin-top:80px;max-width:600px;margin-left:auto;margin-right:auto;">
+            <div class="lux-section-title"><div class="lux-section-pre" data-i18n="contact_pre">CONTACT</div><h2 class="lux-section-heading" data-i18n="contact_title">Contact Sales</h2></div>
+            <p class="muted" style="text-align:center;margin-bottom:32px;" data-i18n="contact_desc">Send a request and we'll reply within 24 hours.</p>
+            <form id="pricingContact" style="display:flex;flex-direction:column;gap:16px;">
+                <input id="pc_name" class="form-input" placeholder="Your name" aria-label="Name" />
                 <input id="pc_email" class="form-input" placeholder="Email or phone" aria-label="Email or phone" />
-                <textarea id="pc_msg" class="form-input" rows="4" placeholder="Tell us about your event and needs"></textarea>
-                <div class="form-actions"><button id="pc_send" type="button" class="btn-primary">Send Request</button><a href="https://wa.me/" class="btn-secondary">WhatsApp</a></div>
+                <textarea id="pc_msg" class="form-input" rows="4" placeholder="Tell us about your event"></textarea>
+                <div class="form-actions"><button id="pc_send" type="button" class="lux-btn-primary" data-i18n="contact_send">Send Request</button><a href="https://wa.me/" class="lux-btn-secondary">WhatsApp</a></div>
             </form>
         </section>
-    </main>
-
+    </div></section>
+    <footer class="lux-footer"><div class="container"><div class="lux-footer-bottom"><p data-i18n="footer_copyright">© 2026 LUXE INVITE. All rights reserved.</p></div></div></footer>
+    <div id="luxToast" class="lux-toast" aria-live="polite"></div>
     <script src="js/app.js" defer></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            const send = document.getElementById('pc_send');
-            send.addEventListener('click', function(){
-                const name = document.getElementById('pc_name').value.trim();
-                const contact = document.getElementById('pc_email').value.trim();
-                if(!name){ if(window.showToast) window.showToast('Please enter your name','info'); document.getElementById('pc_name').focus(); return; }
-                if(!contact){ if(window.showToast) window.showToast('Please enter email or phone','info'); document.getElementById('pc_email').focus(); return; }
-                const data = { name, contact, msg: document.getElementById('pc_msg').value };
-                // save lead locally and to IndexedDB
-                try{ const leads = JSON.parse(localStorage.getItem('lux_leads')||'[]'); leads.push(Object.assign({created:new Date().toISOString()}, data)); localStorage.setItem('lux_leads', JSON.stringify(leads)); }catch(e){}
-                if(window.luxStorage && window.luxStorage.saveLead){ window.luxStorage.saveLead(data).catch(()=>{}); }
-                if(window.showToast) window.showToast('Request sent — we will contact you shortly','success');
-                document.getElementById('pc_msg').value = '';
-            });
-        });
+    const P_T={hy:{nav_features:'Հնարավորություններ',nav_templates:'Նախագծեր',nav_contact:'Կապ',nav_dashboard:'Վահանակ',nav_create:'Ստեղծել',pricing_pre:'ԳՆԵՐ',pricing_title:'Պարզ և թափանցիկ պլաններ',plan_demo:'Դեմո',plan_demo_desc:'Փորձիր Economy պլանը անվճար 5 րոպե։ Քարտ չի պահանջվում։',plan_demo_cta:'Փորձել դեմո',plan_popular:'Ամենաընտրված',plan_economy:'Էկոնոմիկ',plan_ec_f1:'Պրեմիում նախագծեր',plan_ec_f2:'Երաժշտություն և հաշվարկիչ',plan_ec_f3:'RSVP և QR կոդեր',plan_ec_f4:'Մինչև 50 նկար',plan_ec_cta:'Սկսել',plan_premium:'Պրեմիում',plan_pm_f1:'Բոլոր Economy հնարավորությունները',plan_pm_f2:'Տեսանյութ և 3D էֆեկտներ',plan_pm_f3:'Անհատական դոմեյն',plan_pm_f4:'AI գեներացված տեքստ',plan_pm_cta:'Կապվել վաճառքի հետ',contact_pre:'ԿԱՊ',contact_title:'Կապվել վաճառքի հետ',contact_desc:'Ուղարկեք հարցում և մենք կպատասխանենք 24 ժամվա ընթացքում։',contact_send:'Ուղարկել',footer_copyright:'© 2026 LUXE INVITE. Բոլոր իրավունքները պաշտպանված են։'},ru:{nav_features:'Возможности',nav_templates:'Шаблоны',nav_contact:'Контакт',nav_dashboard:'Панель',nav_create:'Создать',pricing_pre:'ЦЕНЫ',pricing_title:'Простые и прозрачные планы',plan_demo:'Демо',plan_demo_desc:'Попробуйте Economy план бесплатно 5 минут. Без карты.',plan_demo_cta:'Попробовать демо',plan_popular:'Популярный',plan_economy:'Эконом',plan_ec_f1:'Премиум шаблоны',plan_ec_f2:'Музыка и таймер',plan_ec_f3:'RSVP и QR-коды',plan_ec_f4:'До 50 фото',plan_ec_cta:'Начать',plan_premium:'Премиум',plan_pm_f1:'Все функции Economy',plan_pm_f2:'Видео и 3D-эффекты',plan_pm_f3:'Личный домен',plan_pm_f4:'AI-генерация текста',plan_pm_cta:'Связаться с отделом продаж',contact_pre:'КОНТАКТ',contact_title:'Связаться с отделом продаж',contact_desc:'Отправьте запрос и мы ответим в течение 24 часов.',contact_send:'Отправить',footer_copyright:'© 2026 LUXE INVITE. Все права защищены.'},en:{nav_features:'Features',nav_templates:'Templates',nav_contact:'Contact',nav_dashboard:'Dashboard',nav_create:'Create',pricing_pre:'PRICING',pricing_title:'Simple, Transparent Plans',plan_demo:'Demo',plan_demo_desc:'Try the Economy plan free for 5 minutes. No card required.',plan_demo_cta:'Try Demo',plan_popular:'Most Popular',plan_economy:'Economy',plan_ec_f1:'Premium templates',plan_ec_f2:'Music & countdown',plan_ec_f3:'RSVP & QR codes',plan_ec_f4:'Up to 50 photos',plan_ec_cta:'Get Started',plan_premium:'Premium',plan_pm_f1:'All Economy features',plan_pm_f2:'Video & 3D effects',plan_pm_f3:'Custom domain',plan_pm_f4:'AI-generated text',plan_pm_cta:'Contact Sales',contact_pre:'CONTACT',contact_title:'Contact Sales',contact_desc:"Send a request and we'll reply within 24 hours.",contact_send:'Send Request',footer_copyright:'© 2026 LUXE INVITE. All rights reserved.'}};
+    let cl=localStorage.getItem('lux_lang')||'hy';
+    function sl(l){cl=l;localStorage.setItem('lux_lang',l);document.documentElement.lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));const d=P_T[l]||P_T.en;document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(d[k])e.textContent=d[k];});}
+    document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>sl(b.dataset.lang)));sl(cl);const m=document.getElementById('mobileMenuBtn'),mm=document.getElementById('mobileMenu');if(m&&mm){m.addEventListener('click',()=>{const o=mm.classList.toggle('active');m.setAttribute('aria-expanded',o);mm.setAttribute('aria-hidden',!o);});mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('active');m.setAttribute('aria-expanded','false');mm.setAttribute('aria-hidden','true');}));}document.getElementById('pc_send').addEventListener('click',()=>{const n=document.getElementById('pc_name').value.trim(),c=document.getElementById('pc_email').value.trim();if(!n){window.showToast('Please enter your name','info');return;}if(!c){window.showToast('Please enter email or phone','info');return;}window.showToast('Request sent — we will contact you shortly','success');document.getElementById('pc_msg').value='';});});
     </script>
 </body>
 </html>

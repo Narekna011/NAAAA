@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy — LUXE INVITE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="lux-bg-gradient"></div>
-    <header class="lux-header">
-        <div class="lux-header-inner">
-            <a href="index.html" class="logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a>
+    <header class="lux-header" id="luxHeader">
+        <div class="container lux-header-inner">
+            <a href="index.html" class="lux-logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a>
+            <nav class="lux-nav"><a href="index.html#features" data-i18n="nav_features">Features</a><a href="templates.html" data-i18n="nav_templates">Templates</a><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></nav>
+            <div class="lux-lang-switcher"><button class="lang-btn" data-lang="hy">HY</button><button class="lang-btn" data-lang="ru">RU</button><button class="lang-btn" data-lang="en">EN</button></div>
+            <div class="lux-header-actions"><a href="dashboard.html" class="lux-btn-secondary" data-i18n="nav_dashboard">Dashboard</a><a href="constructor.html" class="lux-btn-primary" data-i18n="nav_create">Create</a></div>
+            <button class="lux-mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" id="mobileMenuBtn">☰</button>
         </div>
     </header>
-
-    <main class="container" style="padding-top:160px; padding-bottom:80px; max-width:800px;">
-        <h1>Privacy Policy</h1>
-        <p>We respect your privacy. This site stores minimal event data locally for demo purposes and preserves leads using IndexedDB. For production use, leads should be forwarded to your backend or email.</p>
-        <h3>Data retention</h3>
-        <p>Demo session data is automatically cleared after demo expiration. Leads saved via contact forms are stored locally and in IndexedDB until exported or forwarded.</p>
-    </main>
-
-    <footer class="lux-footer">
-        <div class="container">
-            <div class="lux-footer-bottom">
-                <p data-i18n="footer_copyright">© 2026 LUXE INVITE. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
+    <div class="lux-mobile-menu" id="mobileMenu" aria-hidden="true"><a href="index.html#features" data-i18n="nav_features">Features</a><a href="templates.html" data-i18n="nav_templates">Templates</a><a href="pricing.html" data-i18n="nav_pricing">Pricing</a><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a><a href="constructor.html" data-i18n="nav_create">Create</a></div>
+    <section style="padding-top:160px;padding-bottom:80px;"><div class="container" style="max-width:800px;">
+        <div class="lux-section-title"><div class="lux-section-pre" data-i18n="policy_pre">PRIVACY</div><h2 class="lux-section-heading" data-i18n="policy_title">Privacy Policy</h2></div>
+        <div class="lux-feature-card" style="margin-bottom:24px;"><h3 data-i18n="policy_s1_t">Data Storage</h3><p data-i18n="policy_s1_d">All invitation data is stored locally in your browser. We do not upload your personal information to external servers.</p></div>
+        <div class="lux-feature-card" style="margin-bottom:24px;"><h3 data-i18n="policy_s2_t">Cookies</h3><p data-i18n="policy_s2_d">We use localStorage to remember your language preference and saved invitations. No tracking cookies are used.</p></div>
+        <div class="lux-feature-card" style="margin-bottom:24px;"><h3 data-i18n="policy_s3_t">Third-Party Services</h3><p data-i18n="policy_s3_d">We use Pexels for stock imagery and Google Fonts for typography. No personal data is shared with these services.</p></div>
+        <div class="lux-feature-card"><h3 data-i18n="policy_s4_t">Contact</h3><p data-i18n="policy_s4_d">For privacy questions, contact us at hello@luxeinvite.com.</p></div>
+    </div></section>
+    <footer class="lux-footer"><div class="container"><div class="lux-footer-bottom"><p data-i18n="footer_copyright">© 2026 LUXE INVITE. All rights reserved.</p></div></div></footer>
     <script src="js/app.js" defer></script>
+    <script>
+    const P_T={hy:{nav_features:'Հնարավորություններ',nav_templates:'Նախագծեր',nav_pricing:'Գներ',nav_dashboard:'Վահանակ',nav_create:'Ստեղծել',policy_pre:'ԳԱՂՏՆԻՈՒԹՅՈՒՆ',policy_title:'Գաղտնիության քաղաքականություն',policy_s1_t:'Տվյալների պահպանում',policy_s1_d:'Բոլոր տվյալները պահվում են տեղական ձեր բրաուզերում։ Մենք չենք վերբեռնում ձեր անձնական տվյալները արտաքին սերվերներ։',policy_s2_t:'Cookies',policy_s2_d:'Մենք օգտագործում ենք localStorage՝ հիշելու ձեր լեզվի նախընտրությունը և պահպանված հրավերները։',policy_s3_t:'Երրորդ կողմի ծառայություններ',policy_s3_d:'Մենք օգտագործում ենք Pexels նկարների և Google Fonts տառատեսակների համար։',policy_s4_t:'Կապ',policy_s4_d:'Գաղտնիության հարցերով կապվեք hello@luxeinvite.com։',footer_copyright:'© 2026 LUXE INVITE. Բոլոր իրավունքները պաշտպանված են։'},ru:{nav_features:'Возможности',nav_templates:'Шаблоны',nav_pricing:'Цены',nav_dashboard:'Панель',nav_create:'Создать',policy_pre:'КОНФИДЕНЦИАЛЬНОСТЬ',policy_title:'Политика конфиденциальности',policy_s1_t:'Хранение данных',policy_s1_d:'Все данные приглашений хранятся локально в вашем браузере. Мы не загружаем вашу личную информацию на внешние серверы.',policy_s2_t:'Cookies',policy_s2_d:'Мы используем localStorage для запоминания языка и сохранённых приглашений.',policy_s3_t:'Сторонние сервисы',policy_s3_d:'Мы используем Pexels для изображений и Google Fonts для шрифтов.',policy_s4_t:'Контакт',policy_s4_d:'По вопросам конфиденциальности пишите на hello@luxeinvite.com.',footer_copyright:'© 2026 LUXE INVITE. Все права защищены.'},en:{nav_features:'Features',nav_templates:'Templates',nav_pricing:'Pricing',nav_dashboard:'Dashboard',nav_create:'Create',policy_pre:'PRIVACY',policy_title:'Privacy Policy',policy_s1_t:'Data Storage',policy_s1_d:'All invitation data is stored locally in your browser. We do not upload your personal information to external servers.',policy_s2_t:'Cookies',policy_s2_d:'We use localStorage to remember your language preference and saved invitations. No tracking cookies are used.',policy_s3_t:'Third-Party Services',policy_s3_d:'We use Pexels for stock imagery and Google Fonts for typography. No personal data is shared with these services.',policy_s4_t:'Contact',policy_s4_d:'For privacy questions, contact us at hello@luxeinvite.com.',footer_copyright:'© 2026 LUXE INVITE. All rights reserved.'}};
+    let cl=localStorage.getItem('lux_lang')||'hy';
+    function sl(l){cl=l;localStorage.setItem('lux_lang',l);document.documentElement.lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));const d=P_T[l]||P_T.en;document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(d[k])e.textContent=d[k];});}
+    document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>sl(b.dataset.lang)));sl(cl);const m=document.getElementById('mobileMenuBtn'),mm=document.getElementById('mobileMenu');if(m&&mm){m.addEventListener('click',()=>{const o=mm.classList.toggle('active');m.setAttribute('aria-expanded',o);mm.setAttribute('aria-hidden',!o);});mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('active');m.setAttribute('aria-expanded','false');mm.setAttribute('aria-hidden','true');}));}});
+    </script>
 </body>
 </html>

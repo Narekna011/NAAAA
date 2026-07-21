@@ -1,71 +1,48 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ — LUXE INVITE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="lux-bg-gradient"></div>
-    <header class="lux-header">
-        <div class="lux-header-inner">
-            <a href="index.html" class="logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a>
-            <nav class="lux-nav">
-                <a href="#features" data-i18n="nav_features">Features</a>
-                <a href="templates.html" data-i18n="nav_templates">Templates</a>
-                <a href="#contact" data-i18n="nav_contact">Contact</a>
-            </nav>
-            <div class="lux-lang-switcher">
-                <button class="lang-btn" data-lang="hy">HY</button>
-                <button class="lang-btn" data-lang="ru">RU</button>
-                <button class="lang-btn" data-lang="en">EN</button>
-            </div>
-            <div class="lux-header-actions">
-                <a href="dashboard.html" class="btn-secondary" data-i18n="nav_dashboard">Dashboard</a>
-                <a href="constructor.html" class="lux-btn-primary" data-i18n="nav_create">Create</a>
-            </div>
+    <header class="lux-header" id="luxHeader">
+        <div class="container lux-header-inner">
+            <a href="index.html" class="lux-logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a>
+            <nav class="lux-nav"><a href="index.html#features" data-i18n="nav_features">Features</a><a href="templates.html" data-i18n="nav_templates">Templates</a><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></nav>
+            <div class="lux-lang-switcher"><button class="lang-btn" data-lang="hy">HY</button><button class="lang-btn" data-lang="ru">RU</button><button class="lang-btn" data-lang="en">EN</button></div>
+            <div class="lux-header-actions"><a href="dashboard.html" class="lux-btn-secondary" data-i18n="nav_dashboard">Dashboard</a><a href="constructor.html" class="lux-btn-primary" data-i18n="nav_create">Create</a></div>
+            <button class="lux-mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" id="mobileMenuBtn">☰</button>
         </div>
     </header>
-
-    <main class="container" style="padding-top:160px; padding-bottom:80px;">
-        <h1 data-i18n="faq_title">Frequently Asked Questions</h1>
-        <section>
-            <h3 data-i18n="faq_q1">How does the Demo work?</h3>
-            <p data-i18n="faq_a1">The Demo runs for 5 minutes, stores data locally and is removed automatically at the end. You can start it from the constructor page.</p>
-        </section>
-        <section>
-            <h3 data-i18n="faq_q2">Can I use my own music?</h3>
-            <p data-i18n="faq_a2">Yes — in the constructor you can set background music for your invitation.</p>
-        </section>
-    </main>
-
-    <footer class="lux-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="lux-footer-col">
-                    <a href="index.html" class="logo footer-logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a>
-                    <p class="muted" data-i18n="footer_desc">Premium digital invitations for unforgettable moments.</p>
-                </div>
-                <div class="lux-footer-col">
-                    <h4 data-i18n="footer_nav">Navigation</h4>
-                    <a href="templates.html" data-i18n="nav_templates">Templates</a>
-                    <a href="pricing.html">Pricing</a>
-                    <a href="about.html" data-i18n="nav_about">About</a>
-                </div>
-                <div class="lux-footer-col">
-                    <h4 data-i18n="footer_contact">Contact</h4>
-                    <a href="mailto:hello@luxeinvite.com">hello@luxeinvite.com</a>
-                    <a href="contacts.html" data-i18n="nav_contact">Contact Page</a>
-                </div>
-            </div>
-            <div class="lux-footer-bottom">
-                <p data-i18n="footer_copyright">© 2026 LUXE INVITE. All rights reserved.</p>
-            </div>
+    <div class="lux-mobile-menu" id="mobileMenu" aria-hidden="true"><a href="index.html#features" data-i18n="nav_features">Features</a><a href="templates.html" data-i18n="nav_templates">Templates</a><a href="pricing.html" data-i18n="nav_pricing">Pricing</a><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a><a href="constructor.html" data-i18n="nav_create">Create</a></div>
+    <section style="padding-top:160px;padding-bottom:80px;"><div class="container" style="max-width:800px;">
+        <div class="lux-section-title"><div class="lux-section-pre" data-i18n="faq_pre">FAQ</div><h2 class="lux-section-heading" data-i18n="faq_title">Frequently Asked Questions</h2></div>
+        <div class="lux-feature-card" style="margin-bottom:24px;"><h3 data-i18n="faq_q1">How does the Demo work?</h3><p data-i18n="faq_a1">The Demo runs for 5 minutes, stores data locally and is removed automatically at the end.</p></div>
+        <div class="lux-feature-card" style="margin-bottom:24px;"><h3 data-i18n="faq_q2">Can I use my own music?</h3><p data-i18n="faq_a2">Yes — in the constructor you can set background music for your invitation.</p></div>
+        <div class="lux-feature-card" style="margin-bottom:24px;"><h3 data-i18n="faq_q3">Can I customize colors and fonts?</h3><p data-i18n="faq_a3">Yes — each template supports custom colors and fonts.</p></div>
+        <div class="lux-feature-card" style="margin-bottom:24px;"><h3 data-i18n="faq_q4">How do guests RSVP?</h3><p data-i18n="faq_a4">Guests see a RSVP section on the invitation page and can confirm or decline with one click.</p></div>
+        <div class="lux-feature-card"><h3 data-i18n="faq_q5">Is there a free plan?</h3><p data-i18n="faq_a5">Yes — the Demo plan is free for 5 minutes. Economy and Premium plans are available for full access.</p></div>
+    </div></section>
+    <footer class="lux-footer"><div class="container">
+        <div class="lux-footer-grid">
+            <div class="lux-footer-col"><a href="index.html" class="lux-logo footer-logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a><p class="muted" data-i18n="footer_desc">Premium digital invitations for unforgettable moments.</p></div>
+            <div class="lux-footer-col"><h4 data-i18n="footer_nav">Navigation</h4><a href="templates.html" data-i18n="nav_templates">Templates</a><a href="pricing.html" data-i18n="nav_pricing">Pricing</a><a href="about.html" data-i18n="nav_about">About</a></div>
+            <div class="lux-footer-col"><h4 data-i18n="footer_contact">Contact</h4><a href="mailto:hello@luxeinvite.com">hello@luxeinvite.com</a><a href="contacts.html" data-i18n="nav_contact">Contact Page</a></div>
         </div>
-    </footer>
-
+        <div class="lux-footer-bottom"><p data-i18n="footer_copyright">© 2026 LUXE INVITE. All rights reserved.</p></div>
+    </div></footer>
     <script src="js/app.js" defer></script>
-    <script src="js/i18n.js" defer></script>
+    <script>
+    const F_T={hy:{nav_features:'Հնարավորություններ',nav_templates:'Նախագծեր',nav_pricing:'Գներ',nav_dashboard:'Վահանակ',nav_create:'Ստեղծել',nav_contact:'Կապ',nav_about:'Մեր մասին',faq_pre:'ՀԱՐՑԵՐ',faq_title:'Հաճախ տրվող հարցեր',faq_q1:'Ինչպես է աշխատում Demo-ն?',faq_a1:'Demo-ն աշխատում է 5 րոպե, տվյալները պահվում են տեղական և ավտոմատ ջնջվում ավարտից հետո։',faq_q2:'Կարո՞ղ եմ օգտագործել իմ երաժշտությունը:',faq_a2:'Այո — կոնստրուկտորում կարող եք բեռնել ֆոնային երաժշտություն։',faq_q3:'Կարո՞ղ եմ փոխել գույները և տառատեսակները:',faq_a3:'Այո — յուրաքանչյուր նախագիծ աջակցում է անհատական գույներ և տառատեսակներ։',faq_q4:'Ինչպես են հյուրերը RSVP անում:',faq_a4:'Հյուրերը տեսնում են RSVP բաժինը հրավերի էջում և կարող են հաստատել կամ մերժել մեկ սեղմումով։',faq_q5:'Կա՞ անվճար պլան:',faq_a5:'Այո — Demo պլանը անվճար է 5 րոպե։',footer_desc:'Պրեմիում թվային հրավերներ անմոռանալի պահերի համար։',footer_nav:'Նավիգացիա',footer_contact:'Կապ',footer_copyright:'© 2026 LUXE INVITE. Բոլոր իրավունքները պաշտպանված են։'},ru:{nav_features:'Возможности',nav_templates:'Шаблоны',nav_pricing:'Цены',nav_dashboard:'Панель',nav_create:'Создать',nav_contact:'Контакт',nav_about:'О нас',faq_pre:'ВОПРОСЫ',faq_title:'Часто задаваемые вопросы',faq_q1:'Как работает демо?',faq_a1:'Демо длится 5 минут, данные хранятся локально и удаляются по завершении.',faq_q2:'Можно загрузить свою музыку?',faq_a2:'Да — в конструкторе можно установить фоновую музыку.',faq_q3:'Можно менять цвета и шрифты?',faq_a3:'Да — каждый шаблон поддерживает кастомные цвета и шрифты.',faq_q4:'Как гости подтверждают участие?',faq_a4:'Гости видят раздел RSVP на странице приглашения и могут подтвердить или отклонить одним кликом.',faq_q5:'Есть бесплатный план?',faq_a5:'Да — демо-план бесплатен на 5 минут.',footer_desc:'Премиум цифровые приглашения для незабываемых моментов.',footer_nav:'Навигация',footer_contact:'Контакт',footer_copyright:'© 2026 LUXE INVITE. Все права защищены.'},en:{nav_features:'Features',nav_templates:'Templates',nav_pricing:'Pricing',nav_dashboard:'Dashboard',nav_create:'Create',nav_contact:'Contact',nav_about:'About',faq_pre:'FAQ',faq_title:'Frequently Asked Questions',faq_q1:'How does the Demo work?',faq_a1:'The Demo runs for 5 minutes, stores data locally and is removed automatically at the end.',faq_q2:'Can I use my own music?',faq_a2:'Yes — in the constructor you can set background music for your invitation.',faq_q3:'Can I customize colors and fonts?',faq_a3:'Yes — each template supports custom colors and fonts.',faq_q4:'How do guests RSVP?',faq_a4:'Guests see a RSVP section on the invitation page and can confirm or decline with one click.',faq_q5:'Is there a free plan?',faq_a5:'Yes — the Demo plan is free for 5 minutes.',footer_desc:'Premium digital invitations for unforgettable moments.',footer_nav:'Navigation',footer_contact:'Contact',footer_copyright:'© 2026 LUXE INVITE. All rights reserved.'}};
+    let cl=localStorage.getItem('lux_lang')||'hy';
+    function sl(l){cl=l;localStorage.setItem('lux_lang',l);document.documentElement.lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));const d=F_T[l]||F_T.en;document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(d[k])e.textContent=d[k];});}
+    document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>sl(b.dataset.lang)));sl(cl);const m=document.getElementById('mobileMenuBtn'),mm=document.getElementById('mobileMenu');if(m&&mm){m.addEventListener('click',()=>{const o=mm.classList.toggle('active');m.setAttribute('aria-expanded',o);mm.setAttribute('aria-hidden',!o);});mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('active');m.setAttribute('aria-expanded','false');mm.setAttribute('aria-hidden','true');}));}});
+    </script>
 </body>
 </html>

@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account — LUXE INVITE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header class="lux-header">
-        <div class="lux-header-inner">
-            <a href="index.html" class="logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a>
+    <div class="lux-bg-gradient"></div>
+    <header class="lux-header" id="luxHeader">
+        <div class="container lux-header-inner">
+            <a href="index.html" class="lux-logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a>
+            <nav class="lux-nav"><a href="index.html#features" data-i18n="nav_features">Features</a><a href="templates.html" data-i18n="nav_templates">Templates</a><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></nav>
+            <div class="lux-lang-switcher"><button class="lang-btn" data-lang="hy">HY</button><button class="lang-btn" data-lang="ru">RU</button><button class="lang-btn" data-lang="en">EN</button></div>
+            <div class="lux-header-actions"><a href="dashboard.html" class="lux-btn-secondary" data-i18n="nav_dashboard">Dashboard</a><a href="constructor.html" class="lux-btn-primary" data-i18n="nav_create">Create</a></div>
+            <button class="lux-mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" id="mobileMenuBtn">☰</button>
         </div>
     </header>
-    <main class="container" style="padding-top:120px;">
-        <h1 data-i18n="account_title">Your Invitations</h1>
-        <p data-i18n="account_desc">Saved invitations appear here. Demo invitations are removed after the demo expires.</p>
-        <div id="accountList"></div>
-    </main>
-    <script src="js/storage.js" defer></script>
+    <div class="lux-mobile-menu" id="mobileMenu" aria-hidden="true"><a href="index.html#features" data-i18n="nav_features">Features</a><a href="templates.html" data-i18n="nav_templates">Templates</a><a href="pricing.html" data-i18n="nav_pricing">Pricing</a><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a><a href="constructor.html" data-i18n="nav_create">Create</a></div>
+    <section style="padding-top:160px;padding-bottom:80px;"><div class="container" style="max-width:800px;">
+        <div class="lux-section-title"><div class="lux-section-pre" data-i18n="account_pre">ACCOUNT</div><h2 class="lux-section-heading" data-i18n="account_title">Your Invitations</h2></div>
+        <p class="muted" style="text-align:center;margin-bottom:48px;" data-i18n="account_desc">Saved invitations appear here. Demo invitations are removed after the demo expires.</p>
+        <div id="accountList" class="lux-dash-list"></div>
+    </div></section>
+    <footer class="lux-footer"><div class="container"><div class="lux-footer-bottom"><p data-i18n="footer_copyright">© 2026 LUXE INVITE. All rights reserved.</p></div></div></footer>
+    <div id="luxToast" class="lux-toast" aria-live="polite"></div>
+    <script src="js/app.js" defer></script>
     <script>
-        window.addEventListener('load', function(){
-            const out = document.getElementById('accountList');
-            window.luxStorage.listInvitations().then(list=>{
-                if(!list || !list.length) return out.innerHTML = '<p>No invitations found</p>';
-                out.innerHTML = '<ul>'+list.map(i=>`<li>${i.title||'Invitation'} — ${new Date(i.createdAt).toLocaleString()}</li>`).join('')+'</ul>';
-            }).catch(()=>out.innerHTML='<p>Failed to load</p>');
-        });
+    const AC_T={hy:{nav_features:'Հնարավորություններ',nav_templates:'Նախագծեր',nav_pricing:'Գներ',nav_dashboard:'Վահանակ',nav_create:'Ստեղծել',account_pre:'ՀԱՇՎԵՏԵՐԵՎՈՒՅԹ',account_title:'Ձեր հրավերները',account_desc:'Ստորև ցուցադրվում են ձեր պահպանված հրավերները։',no_invs:'Հրավերներ չեն գտնվել',footer_copyright:'© 2026 LUXE INVITE. Բոլոր իրավունքները պաշտպանված են։'},ru:{nav_features:'Возможности',nav_templates:'Шаблоны',nav_pricing:'Цены',nav_dashboard:'Панель',nav_create:'Создать',account_pre:'АККАУНТ',account_title:'Ваши приглашения',account_desc:'Здесь отображаются сохранённые приглашения.',no_invs:'Приглашения не найдены',footer_copyright:'© 2026 LUXE INVITE. Все права защищены.'},en:{nav_features:'Features',nav_templates:'Templates',nav_pricing:'Pricing',nav_dashboard:'Dashboard',nav_create:'Create',account_pre:'ACCOUNT',account_title:'Your Invitations',account_desc:'Saved invitations appear here.',no_invs:'No invitations found',footer_copyright:'© 2026 LUXE INVITE. All rights reserved.'}};
+    let cl=localStorage.getItem('lux_lang')||'hy';
+    function sl(l){cl=l;localStorage.setItem('lux_lang',l);document.documentElement.lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));const d=AC_T[l]||AC_T.en;document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(d[k])e.textContent=d[k];});}
+    document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>sl(b.dataset.lang)));sl(cl);const m=document.getElementById('mobileMenuBtn'),mm=document.getElementById('mobileMenu');if(m&&mm){m.addEventListener('click',()=>{const o=mm.classList.toggle('active');m.setAttribute('aria-expanded',o);mm.setAttribute('aria-hidden',!o);});mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('active');m.setAttribute('aria-expanded','false');mm.setAttribute('aria-hidden','true');}));}const out=document.getElementById('accountList');const d=AC_T[cl]||AC_T.en;out.innerHTML='<div class="lux-dash-item"><p class="muted">'+d.no_invs+'</p></div>';});
     </script>
 </body>
 </html>
