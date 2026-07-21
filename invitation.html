@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation | LUXE INVITE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #D4AF37;
+            --secondary: #F4E4BC;
+            --bg: #0A0908;
+            --surface: rgba(10,9,8,0.7);
+            --text: #FFFFFF;
+            --muted: rgba(255,255,255,0.7);
+            --font: 'Cormorant Garamond';
+            --body-font: 'Montserrat';
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--body-font);
+            overflow-x: hidden;
+        }
+        /* Envelope Animation */
+        .envelope-wrapper {
+            position: fixed;
+            inset:0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background: rgba(10,9,8,0.95);
+            z-index:999;
+            transition: opacity 0.8s ease 0.5s, visibility 0.8s ease 0.5s;
+        }
+        .envelope-wrapper.hidden {
+            opacity:0;
+            visibility:hidden;
+        }
+        .envelope {
+            width:300px;
+            height:200px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            position:relative;
+            border-radius:8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+        .envelope-flap {
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            height:50%;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top center;
+            transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+            z-index:2;
+        }
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+        .invitation-page {
+            min-height:100vh;
+            position:relative;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:80px 32px;
+            overflow:hidden;
+        }
+        .inv-bg {
+            position:absolute;
+            inset:0;
+            z-index:0;
+        }
+        .inv-bg img {
+            width:100%;
+            height:100%;
+            object-fit: cover;
+            filter: brightness(0.45);
+        }
+        .inv-bg::after {
+            content:'';
+            position:absolute;
+            inset:0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.85));
+        }
+        .inv-content {
+            position:relative;
+            z-index:10;
+            max-width:700px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        @keyframes fadeInUp {
+            from { opacity:0; transform: translateY(30px); }
+            to { opacity:1; transform: translateY(0); }
+        }
+        .inv-pre {
+            font-size:14px;
+            letter-spacing:4px;
+            text-transform:uppercase;
+            color: var(--primary);
+            margin-bottom:24px;
+        }
+        .inv-names {
+            font-family: var(--font);
+            font-size: clamp(36px, 8vw, 80px);
+            font-weight:300;
+            line-height:1.1;
+            margin-bottom:20px;
+        }
+        .inv-date {
+            font-size:16px;
+            letter-spacing:4px;
+            text-transform:uppercase;
+            color: var(--primary);
+            margin-bottom:32px;
+        }
+        .inv-venue {
+            font-size:18px;
+            color: var(--muted);
+            margin-bottom:40px;
+        }
+        .inv-message {
+            font-size:18px;
+            line-height:1.7;
+            color: var(--muted);
+            margin-bottom:48px;
+        }
+        .inv-countdown {
+            display:flex;
+            gap:20px;
+            justify-content:center;
+            flex-wrap:wrap;
+            margin-bottom:64px;
+        }
+        .inv-countdown div {
+            background: var(--surface);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:16px;
+            padding:20px 16px;
+            min-width:100px;
+        }
+        .inv-countdown span {
+            display:block;
+            font-family: var(--font);
+            font-size:36px;
+            color: var(--primary);
+        }
+        .inv-countdown small {
+            font-size:11px;
+            letter-spacing:2px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+    </style>
+
+    <script src="js/app.js" defer></script>
+    <script src="js/i18n.js" defer></script>
+        .rsvp-area {
+            margin-top:40px;
+        }
+        .rsvp-btns {
+            display:flex;
+            gap:16px;
+            justify-content:center;
+            flex-wrap:wrap;
+        }
+        .rsvp-btn {
+            padding:14px 32px;
+            border-radius:8px;
+            font-size:13px;
+            letter-spacing:2px;
+            text-transform:uppercase;
+            cursor:pointer;
+            border:2px solid transparent;
+            transition: all 0.3s;
+            background: var(--primary);
+            color: #0A0908;
+            font-weight:600;
+        }
+        .rsvp-btn.secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .rsvp-btn:hover { opacity:0.9; }
+        /* Gold Particles */
+        .gold-particles {
+            position: fixed; inset:0; z-index:5; pointer-events:none;
+        }
+        .particle {
+            position:absolute; width:4px; height:4px; background: var(--primary); border-radius:50%; opacity:0.4; animation: particleFloat 10s infinite linear;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity:0; }
+            10% { opacity:0.6; }
+            90% { opacity:0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity:0; }
+        }
+        /* Music Button */
+        .music-btn {
+            position: fixed; bottom:24px; right:24px; z-index:100; width:56px; height:56px; border-radius:50%; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:22px; cursor:pointer; transition: all 0.3s; color: var(--text);
+        }
+    </style>
+</head>
+<body>
+    <!-- Envelope -->
+    <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+        </div>
+    </div>
+
+    <!-- Music Button -->
+    <button class="music-btn" id="musicBtn" aria-label="Toggle music">♪</button>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Gold Particles -->
+    <div class="gold-particles" id="goldParticles"></div>
+
+    <!-- Invitation Content -->
+    <div class="invitation-page">
+        <div class="inv-bg" id="invBg">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=1080&fit=crop" id="bgImg" alt="Background" loading="lazy">
+        </div>
+        
+        <div class="inv-content">
+            <div class="inv-pre" id="invPre">You're invited</div>
+            <div class="inv-names" id="invNames">Ani & Davit</div>
+            <div class="inv-date" id="invDate">20 August 2026</div>
+            <div class="inv-venue" id="invVenue">Yerevan, Armenia</div>
+            <div class="inv-message" id="invMsg">Սիրով հրավիրում ենք ձեզ մեր կյանքի ամենակարևոր օրը նշելու համար:</div>
+            <div class="inv-countdown" id="countdown">
+                <div><span id="days">00</span><small>Days</small></div>
+                <div><span id="hours">00</span><small>Hours</small></div>
+                <div><span id="minutes">00</span><small>Minutes</small></div>
+                <div><span id="seconds">00</span><small>Seconds</small></div>
+            </div>
+            <div class="rsvp-area">
+                <div class="rsvp-btns">
+                    <button class="rsvp-btn" id="rsvpYes" onclick="rsvp('yes')">Yes, I'll be there</button>
+                    <button class="rsvp-btn secondary" id="rsvpNo" onclick="rsvp('no')">Unfortunately I can't</button>
+                </div>
+                <div id="rsvpStatus" class="rsvp-status"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let templates = [];
+        
+        async function initInvitation() {
+            try {
+                const res = await fetch('templates.json');
+                const data = await res.json();
+                templates = data.templates;
+            } catch (err) {
+                console.error('Loading templates failed, using fallback');
+                window.showToast('Failed to load invitation assets');
+                templates = [{
+                    id: "luxury-gold",
+                    name: "Luxury Wedding Gold",
+                    background: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=1080&fit=crop",
+                    colors: { primary: "#D4AF37", secondary: "#F4E4BC", background: "#0A0908", surface: "rgba(10,9,8,0.7)", text: "#FFFFFF", textMuted: "rgba(255,255,255,0.7)" },
+                    font: "Cormorant Garamond",
+                    bodyFont: "Montserrat",
+                    defaultNames: "Ani & Davit",
+                    defaultDate: "2026-08-20",
+                    defaultVenue: "Yerevan, Armenia",
+                    defaultMessage: "Սիրով հրավիրում ենք ձեզ մեր կյանքի ամենակարևոր օրը նշելու համար:",
+                    music: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                }];
+            }
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const templateId = urlParams.get('template') || 'luxury-gold';
+            const names = urlParams.get('names');
+            const date = urlParams.get('date');
+            const venue = urlParams.get('venue');
+            const msg = urlParams.get('msg');
+            
+            const template = templates.find(t => t.id === templateId) || templates[0];
+            applyTemplate(template);
+            
+            if (names) document.getElementById('invNames').textContent = decodeURIComponent(names);
+            if (venue) document.getElementById('invVenue').textContent = decodeURIComponent(venue);
+            if (msg) document.getElementById('invMsg').textContent = decodeURIComponent(msg);
+            
+            if (date) {
+                const formattedDate = new Date(date).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+                document.getElementById('invDate').textContent = formattedDate;
+                initCountdown(date, { days:'days', hours:'hours', minutes:'minutes', seconds:'seconds' });
+            }
+            
+            generateParticles();
+            setupEnvelope();
+            setupMusic(template.music);
+        }
+        
+        function applyTemplate(tpl) {
+            document.documentElement.style.setProperty('--primary', tpl.colors.primary);
+            document.documentElement.style.setProperty('--secondary', tpl.colors.secondary);
+            document.documentElement.style.setProperty('--bg', tpl.colors.background);
+            document.documentElement.style.setProperty('--surface', tpl.colors.surface);
+            document.documentElement.style.setProperty('--text', tpl.colors.text);
+            document.documentElement.style.setProperty('--muted', tpl.colors.textMuted);
+            document.documentElement.style.setProperty('--font', tpl.font);
+            document.documentElement.style.setProperty('--body-font', tpl.bodyFont);
+            document.getElementById('bgImg').src = tpl.background;
+        }
+        
+        function generateParticles() {
+            const container = document.getElementById('goldParticles');
+            container.innerHTML = '';
+            for (let i=0; i<30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = `${Math.random()*100}%`;
+                p.style.animationDelay = `${Math.random()*10}s`;
+                p.style.animationDuration = `${8+Math.random()*8}s`;
+                container.appendChild(p);
+            }
+        }
+        
+        function setupEnvelope() {
+            const wrapper = document.getElementById('envelopeWrapper');
+            const envelope = document.getElementById('envelope');
+            
+            envelope.addEventListener('click', () => {
+                envelope.classList.add('open');
+                setTimeout(() => {
+                    wrapper.classList.add('hidden');
+                }, 600);
+            });
+            
+            // Auto open after 2 seconds for demo
+            setTimeout(() => {
+                envelope.classList.add('open');
+                setTimeout(() => {
+                    wrapper.classList.add('hidden');
+                }, 600);
+            }, 2000);
+        }
+        
+        let isPlaying = false;
+        
+        function setupMusic(musicUrl) {
+            const audio = document.getElementById('bgMusic');
+            const btn = document.getElementById('musicBtn');
+            
+            if (musicUrl) {
+                const sourceEl = audio.querySelector('source');
+                sourceEl.src = musicUrl;
+                audio.load();
+            }
+            
+            btn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                    btn.textContent = '♪';
+                } else {
+                    audio.play().catch(err => console.warn('Autoplay blocked', err));
+                    btn.textContent = '♫';
+                }
+                isPlaying = !isPlaying;
+            });
+        }
+        
+        function rsvp(response) {
+            const yesBtn = document.getElementById('rsvpYes');
+            const noBtn = document.getElementById('rsvpNo');
+            const status = document.getElementById('rsvpStatus');
+            
+            yesBtn.disabled = true;
+            noBtn.disabled = true;
+            
+            if (response === 'yes') {
+                status.textContent = "Thank you! We can't wait to see you!";
+                yesBtn.style.opacity = '0.5';
+            } else {
+                status.textContent = "We're sorry you can't make it, but we understand!";
+                noBtn.style.opacity = '0.5';
+            }
+        }
+        
+        // Simple countdown function
+        function initCountdown(dateStr, ids) {
+            const targetDate = new Date(dateStr).getTime();
+            
+            function update() {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+                
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    
+                    if (document.getElementById(ids.days)) document.getElementById(ids.days).textContent = String(days).padStart(2,'0');
+                    if (document.getElementById(ids.hours)) document.getElementById(ids.hours).textContent = String(hours).padStart(2,'0');
+                    if (document.getElementById(ids.minutes)) document.getElementById(ids.minutes).textContent = String(minutes).padStart(2,'0');
+                    if (document.getElementById(ids.seconds)) document.getElementById(ids.seconds).textContent = String(seconds).padStart(2,'0');
+                }
+            }
+            
+            update();
+            setInterval(update, 1000);
+        }
+        
+        // Initialize
+        window.addEventListener('DOMContentLoaded', initInvitation);
+    </script>
+</body>
+</html>

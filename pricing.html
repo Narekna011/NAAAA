@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing — LUXE INVITE</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="lux-header">
+        <div class="lux-header-inner">
+            <a href="index.html" class="logo"><div class="logo-icon">L</div><div class="logo-text">LUXE INVITE</div></a>
+            <div class="lux-header-actions">
+                <a href="index.html" class="btn-secondary">Home</a>
+                <a href="#contact" class="btn-primary">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pricing-main">
+        <h1 class="pricing-title">Pricing plans</h1>
+        <p class="pricing-sub">Choose a plan that suits your event. Contact us for custom enterprise pricing.</p>
+
+        <div class="plans-grid">
+            <div class="feature-card">
+                <h3>Demo</h3>
+                <p>Trial the Economy features for 5 minutes.</p>
+                <a href="constructor.html?demo=1&plan=economy" class="btn-primary">Start Demo</a>
+            </div>
+            <div class="feature-card" id="economy">
+                <h3>Economy — $9/month</h3>
+                <ul class="list-left">
+                    <li>Templates</li>
+                    <li>Music & Countdown</li>
+                    <li>RSVP & QR</li>
+                    <li>Up to 50 photos</li>
+                </ul>
+                <a href="#contact" class="btn-secondary">Request</a>
+            </div>
+            <div class="feature-card" id="premium">
+                <h3>Premium — $29/month</h3>
+                <ul class="list-left">
+                    <li>All Economy features</li>
+                    <li>Video & 3D</li>
+                    <li>Custom domain</li>
+                    <li>AI-generated text</li>
+                </ul>
+                <a href="#contact" class="btn-secondary">Contact Sales</a>
+            </div>
+        </div>
+
+        <section id="contact" class="pricing-contact">
+            <h2>Contact Sales</h2>
+            <p class="muted">Send a request and we'll reply within 24 hours.</p>
+            <form id="pricingContact" class="pricing-form">
+                <input id="pc_name" class="form-input" placeholder="Name" aria-label="Name" />
+                <input id="pc_email" class="form-input" placeholder="Email or phone" aria-label="Email or phone" />
+                <textarea id="pc_msg" class="form-input" rows="4" placeholder="Tell us about your event and needs"></textarea>
+                <div class="form-actions"><button id="pc_send" type="button" class="btn-primary">Send Request</button><a href="https://wa.me/" class="btn-secondary">WhatsApp</a></div>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/app.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const send = document.getElementById('pc_send');
+            send.addEventListener('click', function(){
+                const name = document.getElementById('pc_name').value.trim();
+                const contact = document.getElementById('pc_email').value.trim();
+                if(!name){ if(window.showToast) window.showToast('Please enter your name','info'); document.getElementById('pc_name').focus(); return; }
+                if(!contact){ if(window.showToast) window.showToast('Please enter email or phone','info'); document.getElementById('pc_email').focus(); return; }
+                const data = { name, contact, msg: document.getElementById('pc_msg').value };
+                // save lead locally and to IndexedDB
+                try{ const leads = JSON.parse(localStorage.getItem('lux_leads')||'[]'); leads.push(Object.assign({created:new Date().toISOString()}, data)); localStorage.setItem('lux_leads', JSON.stringify(leads)); }catch(e){}
+                if(window.luxStorage && window.luxStorage.saveLead){ window.luxStorage.saveLead(data).catch(()=>{}); }
+                if(window.showToast) window.showToast('Request sent — we will contact you shortly','success');
+                document.getElementById('pc_msg').value = '';
+            });
+        });
+    </script>
+</body>
+</html>

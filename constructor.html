@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor | LUXE INVITE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --template-primary: #D4AF37;
+            --template-secondary: #F4E4BC;
+            --template-bg: #0A0908;
+            --template-surface: rgba(10,9,8,0.7);
+            --template-text: #FFFFFF;
+            --template-muted: rgba(255,255,255,0.7);
+            --template-font: 'Cormorant Garamond';
+            --template-body-font: 'Montserrat';
+        }
+        body {
+            background: var(--color-black);
+            color: var(--color-white);
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .workspace {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 32px;
+            padding: 140px 24px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        @media (max-width: 1024px) {
+            .workspace { grid-template-columns: 1fr; }
+        }
+        .panel {
+            background: var(--color-surface);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 24px;
+            height: fit-content;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .panel-section {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-glass);
+        }
+        .panel-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom:0;
+        }
+        .panel-title {
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-gold);
+            margin-bottom:16px;
+            font-family: var(--font-body);
+        }
+        .form-group {
+            margin-bottom:16px;
+        }
+        .form-label {
+            display:block;
+            font-size:12px;
+            color: var(--color-white-muted);
+            margin-bottom:8px;
+            font-family: var(--font-body);
+        }
+        .form-input, .form-select, .form-textarea {
+            width:100%;
+            background: var(--color-black);
+            border:1px solid var(--border-glass);
+            color: var(--color-white);
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 14px;
+        }
+        .template-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .template-option {
+            border: 2px solid transparent;
+            border-radius: 12px;
+            overflow:hidden;
+            cursor:pointer;
+            transition: all 0.3s;
+        }
+        .template-option:hover, .template-option.active {
+            border-color: var(--color-gold);
+        }
+        .template-option img {
+            width:100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+        }
+        .template-option span {
+            display:block;
+            padding:8px;
+            font-size:12px;
+            text-align:center;
+            background: rgba(0,0,0,0.5);
+        }
+        .color-swatches {
+            display:flex;
+            gap:8px;
+            flex-wrap: wrap;
+        }
+        .color-swatch {
+            width:32px;
+            height:32px;
+            border-radius:50%;
+            cursor:pointer;
+            border:2px solid transparent;
+            transition: all 0.3s;
+        }
+        .color-swatch:hover, .color-swatch.active {
+            border-color: var(--color-white);
+        }
+        .preview-area {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding: 24px;
+            min-height: 80vh;
+        }
+        /* iPhone Frame */
+        .iphone-frame {
+            width:360px;
+            height:780px;
+            background: #1a1a1a;
+            border-radius:50px;
+            padding:12px;
+            box-shadow: 0 60px 120px rgba(0,0,0,0.6), 0 0 0 2px #2a2a2a, 0 0 0 4px #1a1a1a;
+            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
+            transition: transform 0.8s cubic-bezier(0.23,1,0.32,1);
+            animation: floatIn 1s ease-out forwards;
+        }
+        @keyframes floatIn {
+            from { opacity: 0; transform: perspective(1000px) rotateX(20deg) translateY(40px); }
+            to { opacity: 1; transform: perspective(1000px) rotateX(5deg) rotateY(-5deg); }
+        }
+        .iphone-frame:hover {
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+        }
+        .iphone-screen {
+            width:100%;
+            height:100%;
+            border-radius:40px;
+            overflow:hidden;
+            position:relative;
+        }
+        .iphone-notch {
+            position:absolute;
+            top:10px;
+            left:50%;
+            transform: translateX(-50%);
+            width:120px;
+            height:32px;
+            background:#000;
+            border-radius:20px;
+            z-index:20;
+        }
+        /* Invite Content */
+        .invite-content {
+            width:100%;
+            height:100%;
+            position:relative;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:80px 32px 40px;
+            overflow:hidden;
+        }
+        .invite-bg {
+            position:absolute;
+            inset:0;
+            z-index:0;
+        }
+        .invite-bg img {
+            width:100%;
+            height:100%;
+            object-fit: cover;
+            filter: brightness(0.45);
+        }
+        .invite-overlay {
+            position:absolute;
+            inset:0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.8));
+            z-index:1;
+        }
+        .invite-text {
+            position:relative;
+            z-index:10;
+        }
+        .invite-pre {
+            font-size:11px;
+            letter-spacing:3px;
+            text-transform:uppercase;
+            color: var(--template-primary);
+            margin-bottom:16px;
+            font-family: var(--template-body-font);
+        }
+        .invite-names {
+            font-family: var(--template-font);
+            font-size:40px;
+            margin-bottom:16px;
+            line-height:1.1;
+            color: var(--template-text);
+        }
+        .invite-date {
+            font-size:13px;
+            letter-spacing:3px;
+            text-transform:uppercase;
+            color: var(--template-primary);
+            margin-bottom:24px;
+        }
+        .invite-venue {
+            font-size:15px;
+            color: var(--template-muted);
+            margin-bottom:32px;
+        }
+        .invite-message {
+            font-size:15px;
+            line-height:1.6;
+            color: var(--template-muted);
+            max-width:280px;
+        }
+        .invite-countdown {
+            margin-top:40px;
+            display:flex;
+            gap:12px;
+        }
+        .invite-countdown div {
+            background: var(--template-surface);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:10px;
+            padding:12px 8px;
+            min-width:60px;
+        }
+        .invite-countdown span {
+            display:block;
+            font-family: var(--template-font);
+            font-size:22px;
+            color: var(--template-primary);
+        }
+        .invite-countdown small {
+            font-size:10px;
+            letter-spacing:1px;
+            color: var(--template-muted);
+            text-transform: uppercase;
+        }
+        .btn-row {
+            display:flex;
+            gap:12px;
+        }
+        .btn {
+            padding:12px 20px;
+            border-radius:8px;
+            font-family: var(--font-body);
+            font-size:13px;
+            letter-spacing:1px;
+            text-transform: uppercase;
+            cursor:pointer;
+            border:none;
+            transition: all 0.3s;
+            flex:1;
+        }
+        .btn-primary {
+            background: var(--color-gold);
+            color: var(--color-black);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-white);
+            border:1px solid var(--border-glass);
+        }
+        .btn:hover {
+            opacity:0.9;
+            transform: translateY(-1px);
+        }
+        /* Language Switcher */
+        .lang-switcher {
+            display:flex;
+            gap:8px;
+            align-items:center;
+        }
+        .lang-btn {
+            padding:8px 14px;
+            background: transparent;
+            border:1px solid var(--border-glass);
+            color: var(--color-white-muted);
+            font-size:13px;
+            font-weight:500;
+            letter-spacing:1px;
+            border-radius:6px;
+            cursor:pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+        }
+        .lang-btn.active {
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .lang-btn:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+        }
+        .gold-particles {
+            position: absolute;
+            inset: 0;
+            z-index:5;
+            pointer-events:none;
+        }
+        .particle-dot {
+            position:absolute;
+            width:4px;
+            height:4px;
+            background: var(--template-primary);
+            border-radius:50%;
+            opacity:0.4;
+            animation: particleFloat 8s infinite linear;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(100%) rotate(0deg); opacity:0; }
+            10% { opacity:0.6; }
+            90% { opacity:0.6; }
+            100% { transform: translateY(-100%) rotate(360deg); opacity:0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="lux-bg-gradient"></div>
+    
+    <!-- Header -->
+    <header class="lux-header">
+        <div class="container lux-header-inner">
+            <a href="index.html" class="lux-logo">
+                <span class="lux-logo-icon">L</span>
+                <span class="lux-logo-text">LUXE INVITE</span>
+            </a>
+            <div class="lux-header-actions">
+                <div class="lang-switcher lux-lang-switcher">
+                    <button class="lang-btn" data-lang="hy" aria-label="Armenian">HY</button>
+                    <button class="lang-btn" data-lang="ru" aria-label="Russian">RU</button>
+                    <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+                </div>
+                <div class="btn-row">
+                <button class="btn btn-secondary" onclick="openPreviewLink()">🔗 Demo Link</button>
+                <button class="btn btn-primary" onclick="saveInvite()">💾 Save</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="workspace">
+        <!-- Control Panel -->
+        <div class="panel">
+            <div class="panel-section">
+                <h3 class="panel-title">Choose Template</h3>
+                <div class="template-grid" id="templateGrid"></div>
+            </div>
+            <div class="panel-section">
+                <h3 class="panel-title">Details</h3>
+                <div class="form-group">
+                    <label class="form-label">Names</label>
+                    <input type="text" id="namesInput" class="form-input" placeholder="Couple Names">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" id="dateInput" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Venue</label>
+                    <input type="text" id="venueInput" class="form-input" placeholder="Location">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea id="messageInput" class="form-input" rows="3" placeholder="Your invitation text"></textarea>
+                </div>
+            </div>
+            <div class="panel-section">
+                <h3 class="panel-title">Customization</h3>
+                <div class="form-group">
+                    <label class="form-label">Primary Color</label>
+                    <div class="color-swatches">
+                            <div class="color-swatch active" data-color="#D4AF37"></div>
+                            <div class="color-swatch" data-color="#B22222"></div>
+                            <div class="color-swatch" data-color="#111111"></div>
+                            <div class="color-swatch" data-color="#667eea"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone Preview -->
+        <div class="preview-area">
+            <div class="iphone-frame">
+                <div class="iphone-screen">
+                    <div class="iphone-notch"></div>
+                    <div class="invite-content" id="inviteContent">
+                        <div class="invite-bg" id="inviteBg">
+                            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=1080&fit=crop" alt="Background" id="bgImg" loading="lazy">
+                            <div class="invite-overlay"></div>
+                        </div>
+                        <div class="gold-particles" id="goldParticles"></div>
+                        <div class="invite-text">
+                            <div class="invite-pre" id="invPre">Մենք ամուսնանում ենք</div>
+                            <div class="invite-names" id="invNames">Ani & Davit</div>
+                            <div class="invite-date" id="invDate">20 August 2026</div>
+                            <div class="invite-venue" id="invVenue">Yerevan, Armenia</div>
+                            <div class="invite-message" id="invMsg">Սիրով հրավիրում ենք ձեզ մեր կյանքի ամենակարևոր օրը նշելու համար:</div>
+                            <div class="invite-countdown" id="invCountdown">
+                                <div><span id="cd-days">00</span><small>Days</small></div>
+                                <div><span id="cd-hours">00</span><small>Hours</small></div>
+                                <div><span id="cd-minutes">00</span><small>Minutes</small></div>
+                                <div><span id="cd-seconds">00</span><small>Seconds</small></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/countdown.js"></script>
+    <script>
+        let currentTemplate = null;
+        let templates = [];
+        
+        async function loadTemplates() {
+            try {
+                const res = await fetch('templates.json');
+                const data = await res.json();
+                templates = data.templates;
+                renderTemplateGrid();
+                const urlParams = new URLSearchParams(window.location.search);
+                const templateId = urlParams.get('template') || 'luxury-gold';
+                selectTemplate(templateId);
+            } catch (err) {
+                console.error('Error loading templates:', err);
+                window.showToast('Failed to load templates');
+                // Fallback
+                templates = [{
+                    id: "luxury-gold",
+                    name: "Luxury Wedding Gold",
+                    category: "wedding",
+                    thumbnail: "https://images.unsplash.com/photo-1465101108779-f0725a7590f9?w=600&h=800&fit=crop",
+                    background: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=1080&fit=crop",
+                    colors: { primary: "#D4AF37", secondary: "#F4E4BC", background: "#0A0908", surface: "rgba(10,9,8,0.7)", text: "#FFFFFF", textMuted: "rgba(255,255,255,0.7)" },
+                    font: "Cormorant Garamond",
+                    bodyFont: "Montserrat",
+                    defaultNames: "Ani & Davit",
+                    defaultDate: "2026-08-20",
+                    defaultVenue: "Yerevan, Armenia",
+                    defaultMessage: "Սիրով հրավիրում ենք ձեզ մեր կյանքի ամենակարևոր օրը նշելու համար:"
+                }];
+                renderTemplateGrid();
+                selectTemplate('luxury-gold');
+            }
+        }
+        
+        function renderTemplateGrid() {
+            const grid = document.getElementById('templateGrid');
+            grid.innerHTML = '';
+            templates.forEach(tpl => {
+                const div = document.createElement('div');
+                div.className = 'template-option';
+                div.dataset.id = tpl.id;
+                div.innerHTML = `
+                    <img src="${tpl.thumbnail}" alt="${tpl.name}" loading="lazy">
+                    <span>${tpl.name}</span>
+                `;
+                div.addEventListener('click', () => selectTemplate(tpl.id));
+                grid.appendChild(div);
+            });
+        }
+        
+        function selectTemplate(templateId) {
+            const template = templates.find(t => t.id === templateId);
+            if (!template) return;
+            currentTemplate = template;
+            
+            // Update active state
+            document.querySelectorAll('.template-option').forEach(el => el.classList.toggle('active', el.dataset.id === templateId));
+            
+            // Apply styles
+            document.documentElement.style.setProperty('--template-primary', template.colors.primary);
+            document.documentElement.style.setProperty('--template-secondary', template.colors.secondary);
+            document.documentElement.style.setProperty('--template-bg', template.colors.background);
+            document.documentElement.style.setProperty('--template-surface', template.colors.surface);
+            document.documentElement.style.setProperty('--template-text', template.colors.text);
+            document.documentElement.style.setProperty('--template-muted', template.colors.textMuted);
+            document.documentElement.style.setProperty('--template-font', template.font);
+            document.documentElement.style.setProperty('--template-body-font', template.bodyFont);
+            
+            // Update content
+            document.getElementById('namesInput').value = template.defaultNames;
+            document.getElementById('dateInput').value = template.defaultDate;
+            document.getElementById('venueInput').value = template.defaultVenue;
+            document.getElementById('messageInput').value = template.defaultMessage;
+            document.getElementById('bgImg').src = template.background;
+            document.getElementById('bgImg').onerror = () => {
+                // Fallback gradient
+                document.getElementById('bgImg').style.display = 'none';
+                document.getElementById('inviteBg').style.background = 'linear-gradient(135deg, #111 0%, #000 100%)';
+            }
+            
+            updatePreview();
+            generateParticles();
+        }
+        
+        function updatePreview() {
+            const names = document.getElementById('namesInput').value || 'Your Names';
+            const date = document.getElementById('dateInput').value;
+            const venue = document.getElementById('venueInput').value || 'Venue';
+            const message = document.getElementById('messageInput').value || 'Your message';
+            
+            document.getElementById('invNames').textContent = names;
+            document.getElementById('invDate').textContent = date ? formatDate(date) : 'Date';
+            document.getElementById('invVenue').textContent = venue;
+            document.getElementById('invMsg').textContent = message;
+            
+            if (date) {
+                initCountdown(date, {
+                    days: 'cd-days',
+                    hours: 'cd-hours',
+                    minutes: 'cd-minutes',
+                    seconds: 'cd-seconds'
+                });
+            }
+        }
+        
+        function formatDate(dateStr) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateStr).toLocaleDateString('en-US', options);
+        }
+        
+        function saveInvite() {
+            const data = {
+                templateId: currentTemplate.id,
+                names: document.getElementById('namesInput').value,
+                date: document.getElementById('dateInput').value,
+                venue: document.getElementById('venueInput').value,
+                message: document.getElementById('messageInput').value
+            };
+            localStorage.setItem('lux_invite_data', JSON.stringify(data));
+            // persist to IndexedDB if available
+            if(window.luxStorage && window.luxStorage.saveInvitation){
+                window.luxStorage.saveInvitation(data).then(()=>{
+                    if(window.showToast) window.showToast('Invitation saved!', 'success');
+                }).catch(()=>{ if(window.showToast) window.showToast('Invitation saved locally', 'success'); });
+            } else {
+                if(window.showToast) window.showToast('Invitation saved!', 'success');
+            }
+        }
+        
+        function openPreviewLink() {
+            const url = `${window.location.origin}/invitation.html?template=${currentTemplate.id}&names=${encodeURIComponent(document.getElementById('namesInput').value)}&date=${document.getElementById('dateInput').value}&venue=${encodeURIComponent(document.getElementById('venueInput').value)}&msg=${encodeURIComponent(document.getElementById('messageInput').value)}`;
+            window.open(url, '_blank');
+        }
+        
+        function generateParticles() {
+            const container = document.getElementById('goldParticles');
+            container.innerHTML = '';
+            for (let i=0; i<20; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle-dot';
+                p.style.left = `${Math.random()*100}%`;
+                p.style.animationDelay = `${Math.random()*8}s`;
+                p.style.animationDuration = `${6+Math.random()*4}s`;
+                container.appendChild(p);
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('namesInput').addEventListener('input', updatePreview);
+        document.getElementById('dateInput').addEventListener('input', updatePreview);
+        document.getElementById('venueInput').addEventListener('input', updatePreview);
+        document.getElementById('messageInput').addEventListener('input', updatePreview);
+        
+        document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.addEventListener('click', function() {
+                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+                document.documentElement.style.setProperty('--template-primary', this.dataset.color);
+            });
+        });
+        
+        // Load saved data
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedStr = localStorage.getItem('lux_invite_data');
+            if (savedStr) {
+                try {
+                    const saved = JSON.parse(savedStr);
+                    if (saved.templateId) {
+                        // Wait for templates to load first, handled in loadTemplates
+                    }
+                } catch (e) {}
+            }
+            loadTemplates();
+        });
+    </script>
+    <!-- Third-party animation & scroll libraries -->
+    <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@0.2.43/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Product scripts -->
+    <script src="js/app.js" defer></script>
+    <script src="js/i18n.js" defer></script>
+    <script src="js/preview.js" defer></script>
+    <script src="js/demo.js" defer></script>
+
+    <!-- Demo end modal -->
+    <div id="demoModal" class="lux-modal" aria-hidden="true" role="dialog">
+        <div class="lux-modal-panel">
+            <button class="lux-modal-close" id="demoModalClose" aria-label="Close demo dialog">✕</button>
+            <h2>Demo session ended</h2>
+            <p>Your demo data was removed. Want to keep working and unlock full features?</p>
+            <div class="lux-modal-actions">
+                <a class="lux-btn-primary" href="pricing.html">View Pricing</a>
+                <button class="lux-btn-secondary" id="demoTryAgain">Start New Demo</button>
+            </div>
+        </div>
+    </div>
+    <!-- Toast container (fallback if JS not yet loaded) -->
+    <div id="luxToast" class="lux-toast" aria-live="polite"></div>
+</body>
+</html>

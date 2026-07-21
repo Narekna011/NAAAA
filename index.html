@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXE INVITE — Premium Digital Invitations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="gold-particles" aria-hidden="true"></div>
+
+    <main class="main-landing">
+                <section class="lead-section">
+                    <h1 class="lead-title">LUXE INVITE — Premium Digital Invitations</h1>
+                    <p class="lead-sub">Simple. Elegant. Professional invitations — choose a plan, try Economy for free, or contact us directly.</p>
+
+                    <div class="plans-grid">
+                        <div class="feature-card">
+                            <h3>Demo</h3>
+                            <p>Try the Economy plan free for 5 minutes. No card required.</p>
+                            <a href="constructor.html?demo=1&plan=economy" class="btn-primary plan-cta">Try Economy (5 min)</a>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Economy</h3>
+                            <p>Essentials for a beautiful invitation — templates, music, RSVP, QR.</p>
+                            <a href="pricing.html#economy" class="btn-secondary plan-cta">View</a>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Premium / Ultra</h3>
+                            <p>Video, 3D, AI copy, personal domain and white-label options.</p>
+                            <a href="pricing.html#premium" class="btn-secondary plan-cta">Contact Sales</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="contact" class="contact-panel">
+                    <h2>Contact & Request Pricing</h2>
+                    <p class="muted">Fill the form or contact us via WhatsApp / Telegram / Instagram — we'll reply fast.</p>
+                    <form id="contactForm" class="contact-form">
+                            <input id="cf_name" class="form-input" placeholder="Your name" aria-label="Your name" />
+                            <input id="cf_email" class="form-input" placeholder="Email or phone" aria-label="Email or phone" />
+                        <select id="cf_plan" class="form-input">
+                            <option value="economy">Economy</option>
+                            <option value="premium">Premium</option>
+                            <option value="ultra">Ultra</option>
+                        </select>
+                        <textarea id="cf_message" class="form-input" rows="3" placeholder="Message (optional)"></textarea>
+                        <div class="form-actions">
+                            <button type="button" id="cf_send" class="btn-primary">Send Request</button>
+                            <a href="https://wa.me/" id="cf_whatsapp" class="btn-secondary">WhatsApp</a>
+                        </div>
+                    </form>
+                </section>
+            </main>
+            <script>
+                document.addEventListener('DOMContentLoaded', function(){
+                    const send = document.getElementById('cf_send');
+                    const wa = document.getElementById('cf_whatsapp');
+                    send.addEventListener('click', function(){
+                        const name = document.getElementById('cf_name').value.trim();
+                        const contact = document.getElementById('cf_email').value.trim();
+                        if(!name){ if(window.showToast) window.showToast('Please enter your name','info'); document.getElementById('cf_name').focus(); return; }
+                        if(!contact){ if(window.showToast) window.showToast('Please enter email or phone','info'); document.getElementById('cf_email').focus(); return; }
+                        const data = { name, contact, plan: document.getElementById('cf_plan').value, msg: document.getElementById('cf_message').value };
+                        try{ const leads = JSON.parse(localStorage.getItem('lux_leads')||'[]'); leads.push(Object.assign({created:new Date().toISOString()}, data)); localStorage.setItem('lux_leads', JSON.stringify(leads)); }catch(e){}
+                        if(window.luxStorage && window.luxStorage.saveLead){ window.luxStorage.saveLead(data).catch(()=>{}); }
+                        if(window.showToast) window.showToast('Request sent — we will contact you shortly','success');
+                        // clear fields lightly after send
+                        document.getElementById('cf_message').value = '';
+                    });
+                    if(wa){ wa.addEventListener('click', function(e){
+                        e.preventDefault();
+                        const text = encodeURIComponent('Hello, I am interested in ' + (document.getElementById('cf_plan').value || 'Economy') + ' plan. My contact: ' + (document.getElementById('cf_email').value || '') + '.');
+                        window.open('https://wa.me/?text=' + text, '_blank');
+                    }); }
+                });
+            </script>
+    <style>
+        .nav a {
+            color: var(--muted);
+            text-decoration:none;
+            font-size:13px;
+            letter-spacing:2px;
+            text-transform:uppercase;
+            transition:color 0.3s ease;
+        }
+        .nav a:hover { color:var(--primary); }
+        .header-actions { display:flex; gap:16px; align-items:center; }
+        .btn-primary {
+            background: var(--primary);
+            color: #0A0908;
+            border: none;
+            padding:14px 32px;
+            border-radius:8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size:13px;
+            letter-spacing:2px;
+            font-weight:600;
+            text-transform:uppercase;
+            text-decoration:none;
+            cursor:pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow:0 10px 30px rgba(212,175,55,0.3);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border:1px solid var(--border-glass);
+            padding:12px 28px;
+            border-radius:8px;
+            font-size:13px;
+            letter-spacing:2px;
+            text-transform:uppercase;
+            text-decoration:none;
+            cursor:pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        /* Language Switcher */
+        .lang-switcher {
+            display:flex;
+            gap:8px;
+            align-items:center;
+        }
+        .lang-btn {
+            padding:8px 14px;
+            background: transparent;
+            border:1px solid var(--border-glass);
+            color: var(--muted);
+            font-size:13px;
+            font-weight:500;
+            letter-spacing:1px;
+            border-radius:6px;
+            cursor:pointer;
+            transition: all 0.3s ease;
+        }
+        .lang-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(212,175,55,0.1);
+        }
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display:flex;
+            align-items:center;
+            position:relative;
+        }
+        .hero-bg {
+            position:absolute; inset:0; z-index:-1;
+        }
+        .hero-bg img {
+            width:100%; height:100%; object-fit:cover;
+            filter:brightness(0.5);
+        }
+        .hero-overlay {
+            position:absolute; inset:0;
+            background: linear-gradient(180deg, rgba(10,9,8,0.6), rgba(10,9,8,0.95));
+        }
+        .hero-content {
+            max-width:800px;
+            margin:0 auto;
+            padding:180px 40px 100px;
+            text-align:center;
+        }
+        .hero-pre {
+            font-size:13px;
+            letter-spacing:4px;
+            text-transform:uppercase;
+            color:var(--primary);
+            margin-bottom:24px;
+        }
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(42px, 8vw, 96px);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom:24px;
+        }
+        .hero-subtitle {
+            font-size:18px;
+            color:var(--muted);
+            max-width:600px;
+            margin:0 auto 40px;
+            line-height:1.6;
+        }
+        .hero-btns {
+            display:flex;
+            gap:20px;
+            justify-content:center;
+            flex-wrap:wrap;
+        }
+        /* Sections */
+        .container {
+            max-width:1200px;
+            margin:0 auto;
+            padding:0 40px;
+        }
+        section {
+            padding:120px 0;
+        }
+        .section-title {
+            text-align:center;
+            margin-bottom:70px;
+        }
+        .section-pre {
+            color:var(--primary);
+            font-size:13px;
+            letter-spacing:4px;
+            text-transform: uppercase;
+            margin-bottom:16px;
+        }
+        .section-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size:52px;
+            font-weight:400;
+        }
+        /* Features */
+        .features-grid {
+            display:grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap:32px;
+        }
+        .feature-card {
+            padding:48px 36px;
+            border:1px solid var(--border-glass);
+            background: var(--surface);
+            transition: all 0.4s ease;
+        }
+        .feature-card:hover {
+            border-color: rgba(212,175,55,0.4);
+            transform: translateY(-8px);
+        }
+        .feature-icon {
+            width:48px;
+            height:48px;
+            border:1px solid var(--primary);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:var(--primary);
+            font-size:20px;
+            margin-bottom:24px;
+        }
+        .feature-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size:26px;
+            margin-bottom:12px;
+            font-weight:400;
+        }
+        .feature-card p {
+            color: var(--muted);
+            line-height:1.7;
+            font-size:15px;
+        }
+        /* Templates Preview */
+        #templates-preview {
+            background: #0F0E0D;
+        }
+        .templates-grid {
+            display:grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap:28px;
+        }
+        .template-card {
+            position:relative;
+            overflow:hidden;
+            border-radius:12px;
+            cursor:pointer;
+            transition: transform 0.4s ease;
+        }
+        .template-card:hover {
+            transform: translateY(-10px);
+        }
+        .template-card img {
+            width:100%;
+            aspect-ratio:3/4;
+            object-fit:cover;
+            filter:brightness(0.75);
+            transition: all 0.6s ease;
+        }
+        .template-card:hover img {
+            transform: scale(1.05);
+            filter:brightness(0.55);
+        }
+        .template-overlay {
+            position:absolute;
+            inset:0;
+            background: linear-gradient(180deg, transparent, rgba(0,0,0,0.9));
+            padding:24px;
+            display:flex;
+            flex-direction:column;
+            justify-content:flex-end;
+            opacity:0;
+            transition: opacity 0.4s ease;
+        }
+        .template-card:hover .template-overlay { opacity:1; }
+        .template-category {
+            font-size:12px;
+            letter-spacing:2px;
+            text-transform: uppercase;
+            color:var(--primary);
+            margin-bottom:12px;
+        }
+        .template-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size:28px;
+            margin-bottom:20px;
+        }
+        .template-btn {
+            align-self:flex-start;
+            padding:10px 24px;
+            background:var(--primary);
+            color:#0A0908;
+            border:none;
+            border-radius:8px;
+            font-size:13px;
+            letter-spacing:2px;
+            text-transform: uppercase;
+            font-weight:600;
+            cursor:pointer;
+            text-decoration:none;
+        }
+        /* CTA */
+        .cta-section {
+            position:relative;
+            overflow:hidden;
+        }
+        .cta-bg {
+            position:absolute; inset:0; z-index:-1;
+        }
+        .cta-bg img {
+            width:100%; height:100%; object-fit:cover;
+            filter:brightness(0.35);
+        }
+        .cta-content {
+            text-align:center;
+            padding:120px 40px;
+            max-width:700px;
+            margin:0 auto;
+        }
+        .cta-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size:48px;
+            margin-bottom:20px;
+            font-weight:400;
+        }
+        .cta-content p {
+            color: var(--muted);
+            font-size:18px;
+            margin-bottom:36px;
+        }
+        /* Footer */
+        footer {
+            border-top:1px solid var(--border-glass);
+            padding:60px 0 40px;
+        }
+        .footer-grid {
+            display:grid;
+            grid-template-columns:2fr 1fr 1fr;
+            gap:60px;
+            margin-bottom:40px;
+        }
+        .footer-col h4 {
+            font-size:12px;
+            letter-spacing:2px;
+            text-transform: uppercase;
+            color:var(--muted);
+            margin-bottom:20px;
+            font-weight:500;
+        }
+        .footer-col a {
+            display:block;
+            color:var(--muted);
+            text-decoration:none;
+            margin-bottom:12px;
+            font-size:15px;
+            transition: color 0.3s ease;
+        }
+        .footer-col a:hover { color:var(--primary); }
+        .footer-bottom {
+            border-top:1px solid var(--border-glass);
+            padding-top:30px;
+            text-align:center;
+            color:var(--muted);
+            font-size:14px;
+        }
+        /* Mobile */
+        .mobile-menu-btn { display:none; }
+        @media (max-width: 900px) {
+            .nav, .header-actions .btn-secondary { display:none; }
+            .mobile-menu-btn {
+                display:block;
+                font-size:28px;
+                background:transparent;
+                border:none;
+                color:var(--text);
+                cursor:pointer;
+            }
+            .lux-header { padding:16px 20px; }
+            .templates-grid { grid-template-columns:1fr; }
+            .section-heading { font-size:38px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <header class="lux-header">
+        <div class="lux-header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">L</div>
+                <div class="logo-text">LUXE INVITE</div>
+            </a>
+            <nav class="lux-nav">
+                <a href="#features" data-i18n="nav_features">Features</a>
+                <a href="templates.html" data-i18n="nav_templates">Templates</a>
+                <a href="#contact" data-i18n="nav_contact">Contact</a>
+            </nav>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="hy">Հայ</button>
+                <button class="lang-btn" data-lang="ru">Рус</button>
+                <button class="lang-btn" data-lang="en">Eng</button>
+            </div>
+            <div class="lux-header-actions">
+                <a href="dashboard.html" class="btn-secondary" data-i18n="nav_dashboard">Dashboard</a>
+                <a href="constructor.html" class="btn-primary" data-i18n="nav_create">Create Invitation</a>
+            </div>
+            <button class="lux-mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+        </div>
+    </header>
+
+    <script src="js/app.js" defer></script>
+    <script src="js/i18n.js" defer></script>
+
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=1080&fit=crop" alt="Luxury wedding event" loading="lazy">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-pre" data-i18n="hero_pre">PREMIUM DIGITAL INVITATIONS</div>
+            <h1 class="hero-title" data-i18n="hero_title">Create Unforgettable Moments</h1>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">
+                Craft stunning digital invitations with elegant templates, music, countdowns, and RSVP tracking.
+            </p>
+            <div class="hero-btns">
+                <a href="constructor.html" class="btn-primary" data-i18n="hero_start">Start Creating</a>
+                <a href="templates.html" class="btn-secondary" data-i18n="hero_templates">View Templates</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <div class="section-pre" data-i18n="features_pre">WHY CHOOSE US</div>
+                <h2 class="section-heading" data-i18n="features_title">Everything You Need</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✦</div>
+                    <h3 data-i18n="feat1_title">Premium Templates</h3>
+                    <p data-i18n="feat1_desc">Carefully crafted, luxury designs for weddings, birthdays, and all special occasions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♪</div>
+                    <h3 data-i18n="feat2_title">Background Music</h3>
+                    <p data-i18n="feat2_desc">Add the perfect soundtrack to your invitation and create the right atmosphere.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱</div>
+                    <h3 data-i18n="feat3_title">Countdown Timer</h3>
+                    <p data-i18n="feat3_desc">Build excitement with a beautiful timer counting down to your special day.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3 data-i18n="feat4_title">Map Integration</h3>
+                    <p data-i18n="feat4_desc">Help your guests find the venue easily with integrated maps.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📷</div>
+                    <h3 data-i18n="feat5_title">Photo Gallery</h3>
+                    <p data-i18n="feat5_desc">Share your favorite photos and tell your story.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3 data-i18n="feat6_title">RSVP Tracking</h3>
+                    <p data-i18n="feat6_desc">Easily manage your guest list with real-time confirmations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="templates-preview">
+        <div class="container">
+            <div class="section-title">
+                <div class="section-pre" data-i18n="templates_pre">TEMPLATES</div>
+                <h2 class="section-heading" data-i18n="templates_title">Our Designs</h2>
+            </div>
+            <div class="templates-grid" id="homeTemplatesGrid"></div>
+            <div class="templates-cta">
+                <a href="templates.html" class="btn-secondary" data-i18n="templates_view_all">View All Templates</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <div class="cta-bg">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1920&h=1080&fit=crop" alt="Luxury event" loading="lazy">
+        </div>
+        <div class="cta-content">
+            <h2 data-i18n="cta_title">Ready to Get Started?</h2>
+            <p data-i18n="cta_desc">Create your first invitation for free and see the magic happen.</p>
+            <a href="constructor.html" class="btn-primary" data-i18n="cta_btn">Create Invitation</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <div class="logo-icon">L</div>
+                        <div class="logo-text">LUXE INVITE</div>
+                    </a>
+                        <p class="muted" data-i18n="footer_desc">
+                        Premium digital invitations for unforgettable moments.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_nav">Navigation</h4>
+                    <a href="#features" data-i18n="nav_features">Features</a>
+                    <a href="templates.html" data-i18n="nav_templates">Templates</a>
+                    <a href="constructor.html" data-i18n="nav_create">Create</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_contact">Contact</h4>
+                    <a href="mailto:hello@luxeinvite.com">hello@luxeinvite.com</a>
+                    <p class="muted">Yerevan, Armenia</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer_copyright">© 2026 LUXE INVITE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language data
+        const translations = {
+            hy: {
+                nav_features: 'Հնարավորություններ',
+                nav_templates: 'Նախագծեր',
+                nav_contact: 'Կապ',
+                nav_dashboard: 'Վահանակ',
+                nav_create: 'Ստեղծել հրավեր',
+                hero_pre: 'ՊՐԵՄԻՈՒՄ ԹՎԵՔԱՅԻՆ ՀՐԱՎԵՐՆԵՐ',
+                hero_title: 'Ստեղծի՛ր անմոռանալի պահեր',
+                hero_subtitle: 'Ստեղծիր գեղեցիկ թվային հրավերներ շքեղ նախագծերով, երաժշտությամբ, հաշվարկիչով և RSVP հաստատումներով։',
+                hero_start: 'Սկսել ստեղծել',
+                hero_templates: 'Տեսնել նախագծերը',
+                features_pre: 'ԻՆՉՈՒ ընտրել ՄԵԶ',
+                features_title: 'Ամեն ինչ, որ քեզ պետք է',
+                feat1_title: 'Պրեմիում նախագծեր',
+                feat1_desc: 'Ուշադրությամբ պատրաստված շքեղ դիզայներ հարսանիքների, ծննդաբերությունների և բոլոր հատուկ առիթների համար։',
+                feat2_title: 'Ֆոնային երաժշտություն',
+                feat2_desc: 'Ավելացրեք ձեր հրավերին կատարյալ երաժշտությունը և ստեղծեք ճիշտ մթնոլորտ։',
+                feat3_title: 'Հաշվարկիչ',
+                feat3_desc: 'Ստեղծեք հետաքրքրաշարժություն ձեր հատուկ օրը հաշվող գեղեցիկ ժամացույցով։',
+                feat4_title: 'Քարտեզ',
+                feat4_desc: 'Օգնեք ձեր հյուրերին հեշտությամբ գտնել վայրը ինտեգրված քարտեզներով։',
+                feat5_title: 'Նկարների գալերեա',
+                feat5_desc: 'Տարածեք ձեր սիրելի նկարները և պատմեք ձեր պատմությունը։',
+                feat6_title: 'RSVP հաստատումներ',
+                feat6_desc: 'Հեշտությամբ կառավարեք ձեր հյուրերի ցուցակը ժամանակակից հաստատումներով։',
+                templates_pre: 'ՆԱԽԱԳԾԵՐ',
+                templates_title: 'Մեր դիզայները',
+                templates_view_all: 'Տեսնել բոլոր նախագծերը',
+                cta_title: 'Պատրաստ ես սկսելու՞',
+                cta_desc: 'Ստեղծիր քո առաջին հրավերն անվճար և տես կախարդությունը։',
+                cta_btn: 'Ստեղծել հրավեր',
+                footer_desc: 'Պրեմիում թվային հրավերներ անմոռանալի պահերի համար։',
+                footer_nav: 'Նավիգացիա',
+                footer_contact: 'Կապ',
+                footer_copyright: '© 2026 LUXE INVITE. Բոլոր իրավունքները պաշտպանված են։'
+            },
+            ru: {
+                nav_features: 'Возможности',
+                nav_templates: 'Шаблоны',
+                nav_contact: 'Контакт',
+                nav_dashboard: 'Панель',
+                nav_create: 'Создать приглашение',
+                hero_pre: 'ПРЕМИУМ ЦИФРОВЫЕ ПРИГЛАШЕНИЯ',
+                hero_title: 'Создавай незабываемые моменты',
+                hero_subtitle: 'Создавай потрясающие цифровые приглашения с элегантными шаблонами, музыкой, обратным отсчетом и подтверждениями RSVP.',
+                hero_start: 'Начать создавать',
+                hero_templates: 'Посмотреть шаблоны',
+                features_pre: 'ПОЧЕМУ МЫ',
+                features_title: 'Всё, что вам нужно',
+                feat1_title: 'Премиум шаблоны',
+                feat1_desc: 'Тщательно разработанные, роскошные дизайны для свадеб, дней рождения и всех особых случаев.',
+                feat2_title: 'Фоновая музыка',
+                feat2_desc: 'Добавьте идеальный саундтрек к вашему приглашению и создайте нужную атмосферу.',
+                feat3_title: 'Таймер обратного отсчета',
+                feat3_desc: 'Создайте волнение с красивым таймером, считающим время до вашего особого дня.',
+                feat4_title: 'Интеграция карт',
+                feat4_desc: 'Помогите вашим гостям легко найти место проведения мероприятия с интегрированными картами.',
+                feat5_title: 'Фотогалерея',
+                feat5_desc: 'Делитесь своими любимыми фотографиями и рассказывайте свою историю.',
+                feat6_title: 'Отслеживание RSVP',
+                feat6_desc: 'Легко управляйте списком гостей с подтверждениями в реальном времени.',
+                templates_pre: 'ШАБЛОНЫ',
+                templates_title: 'Наши дизайны',
+                templates_view_all: 'Посмотреть все шаблоны',
+                cta_title: 'Готовы начать?',
+                cta_desc: 'Создайте свое первое приглашение бесплатно и увидите волшебство.',
+                cta_btn: 'Создать приглашение',
+                footer_desc: 'Премиум цифровые приглашения для незабываемых моментов.',
+                footer_nav: 'Навигация',
+                footer_contact: 'Контакт',
+                footer_copyright: '© 2026 LUXE INVITE. Все права защищены.'
+            },
+            en: {
+                nav_features: 'Features',
+                nav_templates: 'Templates',
+                nav_contact: 'Contact',
+                nav_dashboard: 'Dashboard',
+                nav_create: 'Create Invitation',
+                hero_pre: 'PREMIUM DIGITAL INVITATIONS',
+                hero_title: 'Create Unforgettable Moments',
+                hero_subtitle: 'Craft stunning digital invitations with elegant templates, music, countdowns, and RSVP tracking.',
+                hero_start: 'Start Creating',
+                hero_templates: 'View Templates',
+                features_pre: 'WHY CHOOSE US',
+                features_title: 'Everything You Need',
+                feat1_title: 'Premium Templates',
+                feat1_desc: 'Carefully crafted, luxury designs for weddings, birthdays, and all special occasions.',
+                feat2_title: 'Background Music',
+                feat2_desc: 'Add the perfect soundtrack to your invitation and create the right atmosphere.',
+                feat3_title: 'Countdown Timer',
+                feat3_desc: 'Build excitement with a beautiful timer counting down to your special day.',
+                feat4_title: 'Map Integration',
+                feat4_desc: 'Help your guests find the venue easily with integrated maps.',
+                feat5_title: 'Photo Gallery',
+                feat5_desc: 'Share your favorite photos and tell your story.',
+                feat6_title: 'RSVP Tracking',
+                feat6_desc: 'Easily manage your guest list with real-time confirmations.',
+                templates_pre: 'TEMPLATES',
+                templates_title: 'Our Designs',
+                templates_view_all: 'View All Templates',
+                cta_title: 'Ready to Get Started?',
+                cta_desc: 'Create your first invitation for free and see the magic happen.',
+                cta_btn: 'Create Invitation',
+                footer_desc: 'Premium digital invitations for unforgettable moments.',
+                footer_nav: 'Navigation',
+                footer_contact: 'Contact',
+                footer_copyright: '© 2026 LUXE INVITE. All rights reserved.'
+            }
+        };
+
+        let currentLang = localStorage.getItem('luxe_lang') || 'hy';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('luxe_lang', lang);
+            document.documentElement.lang = lang;
+            
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update text content
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Initialize language switcher
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => switchLanguage(btn.dataset.lang));
+            });
+            switchLanguage(currentLang);
+        });
+
+        let templates = [];
+        async function loadHomeTemplates() {
+            try {
+                const res = await fetch('templates.json');
+                const data = await res.json();
+                templates = data.templates;
+            } catch (err) {
+                templates = [
+                    { id:'luxury-gold', name:'Luxury Wedding Gold', category:'Wedding', thumbnail:'https://images.unsplash.com/photo-1465101108779-f0725a7590f9?w=600&h=800&fit=crop' },
+                    { id:'armenian-classic', name:'Armenian Classic', category:'Wedding', thumbnail:'https://images.unsplash.com/photo-1526045431048-f857369baa09?w=600&h=800&fit=crop' },
+                    { id:'birthday-premium', name:'Birthday Premium', category:'Birthday', thumbnail:'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=800&fit=crop' }
+                ];
+            }
+            
+            const grid = document.getElementById('homeTemplatesGrid');
+            grid.innerHTML = '';
+            templates.slice(0,3).forEach(tpl => {
+                const card = document.createElement('div');
+                card.className = 'template-card';
+                card.innerHTML = `
+                    <img src="${tpl.thumbnail}" alt="${tpl.name}">
+                    <div class="template-overlay">
+                        <div class="template-category">${tpl.category || 'Special Occasion'}</div>
+                        <h3 class="template-title">${tpl.name}</h3>
+                        <a href="constructor.html?template=${tpl.id}" class="template-btn">Use Template</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        loadHomeTemplates();
+    </script>
+</body>
+</html>

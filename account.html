@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Account — LUXE INVITE</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="lux-header">
+        <div class="lux-header-inner">
+            <a href="index.html" class="logo"><span class="lux-logo-icon">L</span><span class="lux-logo-text">LUXE INVITE</span></a>
+        </div>
+    </header>
+    <main class="container" style="padding-top:120px;">
+        <h1 data-i18n="account_title">Your Invitations</h1>
+        <p data-i18n="account_desc">Saved invitations appear here. Demo invitations are removed after the demo expires.</p>
+        <div id="accountList"></div>
+    </main>
+    <script src="js/storage.js" defer></script>
+    <script>
+        window.addEventListener('load', function(){
+            const out = document.getElementById('accountList');
+            window.luxStorage.listInvitations().then(list=>{
+                if(!list || !list.length) return out.innerHTML = '<p>No invitations found</p>';
+                out.innerHTML = '<ul>'+list.map(i=>`<li>${i.title||'Invitation'} — ${new Date(i.createdAt).toLocaleString()}</li>`).join('')+'</ul>';
+            }).catch(()=>out.innerHTML='<p>Failed to load</p>');
+        });
+    </script>
+</body>
+</html>
